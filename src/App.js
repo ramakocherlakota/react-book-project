@@ -4,31 +4,15 @@ import Posts from "./components/Posts"
 import Post from "./components/Post"
 import PostForm from "./components/PostForm"
 import NotFound from "./components/NotFound"
+import Message from "./components/Message"
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends Component {
     state = {
-      posts: [
-          {
-              id: 1,
-              slug: 'hello-react',
-              title: "Hello React",
-              content: "Lorem."
-          },
-          {
-              id: 2,
-              slug: 'hello-project',
-              title: "Hello Project",
-              content: "Tothe."
-          },
-          {
-              id: 3,
-              slug: 'hello-blog',
-              title: "Hello Blog",
-              content: "Ipsum."
-          }
-      ]
+        posts: [
+        ],
+        message: null
   }
 
     addNewPost = post => {
@@ -40,8 +24,12 @@ class App extends Component {
                 .join("-")
         );
         this.setState({
-            posts : [...this.state.posts, post]
+            posts : [...this.state.posts, post],
+            message: "saved"
         });
+        setTimeout(() => {
+            this.setState({ message:null });
+        }, 1600);
     };
 
     render() {
@@ -49,6 +37,7 @@ class App extends Component {
                 <Router>
                   <div className="App">
                     <Header/>
+                    {this.state.message && <Message type={this.state.message} />}
                     <Switch>
                       <Route
                          exact
